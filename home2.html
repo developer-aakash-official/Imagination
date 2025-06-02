@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Leveling Mission System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Orbitron', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: url('https://source.unsplash.com/1600x900/?galaxy,gaming');
+            background-size: cover;
+            background-position: center;
+            box-shadow: inset 0 -5px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 50px;
+            font-size: 1.2em;
+            text-align: center;
+            color: #fff;
+        }
+
+        .scroll-down::after {
+            content: "▼";
+            display: block;
+            font-size: 2em;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Quest Section */
+        .quest-section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .quest-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .quest-card {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .quest-card h2 {
+            color: #ff004c;
+        }
+
+        .quest-link {
+            text-decoration: none;
+            /* Removes underline */
+            color: inherit;
+            /* Keeps text color unchanged */
+        }
+
+        .quest-card {
+            transition: 0.3s ease;
+        }
+
+        .quest-link:hover .quest-card {
+            box-shadow: 0 0 15px #00aaff, 0 0 40px #0088ff;
+            /* Neon glow effect */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome, Player</h1>
+        <div class="scroll-down">Scroll Down</div>
+    </div>
+
+    <!-- Quest Cards Section -->
+    <!-- Quest Cards Section -->
+    <section class="quest-section">
+        <h1>Your Missions</h1>
+        <div class="quest-container">
+            <!-- Clickable Yearly Quest Card -->
+            <a href="year.html" class="quest-link">
+                <div class="quest-card">
+                    <h2>Yearly Quest</h2>
+                    <p>Define your ultimate goal for this year.</p>
+                </div>
+            </a>
+
+
+    <!-- Monthly Quest - Navigates to month.html -->
+    <a href="month.html" class="quest-link">
+        <div class="quest-card">
+            <h2>Monthly Quest</h2>
+            <p>Set your challenges to conquer every month.</p>
+        </div>
+    </a>
+
+    <!-- Weekly Quest - Navigates to week.html -->
+    <a href="week.html" class="quest-link">
+        <div class="quest-card">
+            <h2>Weekly Quest</h2>
+            <p>Outline your short-term victories each week.</p>
+        </div>
+    </a>
+
+    <!-- Daily Quest - Navigates to day.html -->
+    <a href="day.html" class="quest-link">
+        <div class="quest-card">
+            <h2>Daily Quest</h2>
+            <p>Assign missions for consistent progress.</p>
+        </div>
+    </a>
+</div>
+        </div>
+    </section>
+
+</body>
+
+</html>

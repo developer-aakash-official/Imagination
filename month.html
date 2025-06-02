@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yearly Quests - Solo Leveling System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      font-family: 'Orbitron', sans-serif;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+    /* Neon glowing screen boundary */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 8px solid #00aaff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00aaff, 0 0 50px #0088ff;
+      pointer-events: none;
+    }
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #ff004c, #8e2de2);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    /* Quest Section */
+    .quest-section {
+      text-align: center;
+      padding: 50px 20px;
+    }
+    .add-button {
+      background-color: #ff004c;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-bottom: 20px;
+    }
+    .add-button:hover {
+      background-color: #e60046;
+    }
+    /* Quest Cards */
+    .quest-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .quest-card {
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      border: 2px solid #00aaff;
+    }
+    .quest-card h3 {
+      color: #ff004c;
+    }
+    textarea {
+      width: 90%;
+      height: 100px;
+      background-color: #2a2a2a;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 1em;
+      resize: none;
+    }
+    /* Reward Input */
+    .quest-card input.reward-input {
+      width: 90%;
+      margin-top: 10px;
+      padding: 8px;
+      background-color: #2a2a2a;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+    }
+    /* Status Dropdown */
+    .quest-card select {
+      width: 95%;
+      margin-top: 10px;
+      padding: 8px;
+      background-color: #2a2a2a;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+    }
+    /* Buttons */
+    button.save-btn {
+      background-color: #00aaff;
+      border: none;
+      padding: 8px 16px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 10px;
+      color: #fff;
+    }
+    button.save-btn:hover {
+      background-color: #0088ff;
+    }
+    button.remove-btn {
+      background-color: #ff004c;
+      border: none;
+      padding: 8px 16px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 10px;
+      color: #fff;
+    }
+    button.remove-btn:hover {
+      background-color: #cc0033;
+    }
+    /* Reward Granted Animation */
+    .reward-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #ffcc00;
+      text-shadow: 0 0 10px #ffcc00, 0 0 30px #ffaa00;
+      display: none;
+      animation: fadeOut 3s ease-in-out forwards;
+    }
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Monthly Quests</h1>
+    <p>Define your short term monthly missions!</p>
+  </header>
+
+  <section class="quest-section">
+    <button class="add-button" onclick="addQuest()">Add Quest</button>
+    <div class="quest-container" id="quest-list"></div>
+  </section>
+
+  <!-- Reward Animation Message -->
+  <div class="reward-message" id="rewardMessage"></div>
+
+  <script>
+    let questCounter = 1; // Keeps track of quest numbers
+    const questList = document.getElementById("quest-list");
+
+    // Create a new quest card with empty fields
+    function addQuest() {
+      const questCard = document.createElement("div");
+      questCard.classList.add("quest-card");
+
+      // Quest Title
+      const questTitle = document.createElement("h3");
+      questTitle.innerText = "Quest " + questCounter;
+
+      // Quest Details Textarea
+      const questTextArea = document.createElement("textarea");
+      questTextArea.setAttribute("placeholder", "Enter quest details...");
+
+      // Reward Input Field
+      const rewardInput = document.createElement("input");
+      rewardInput.type = "text";
+      rewardInput.placeholder = "Enter reward...";
+      rewardInput.classList.add("reward-input");
+
+      // Quest Status Select Dropdown
+      const statusSelect = document.createElement("select");
+      const statuses = ["Not Started", "In Progress", "Completed"];
+      statuses.forEach((status) => {
+        const option = document.createElement("option");
+        option.value = status;
+        option.text = status;
+        statusSelect.appendChild(option);
+      });
+
+      // Save Quest Button
+      const saveButton = document.createElement("button");
+      saveButton.classList.add("save-btn");
+      saveButton.innerText = "Save Quest";
+      saveButton.onclick = function () {
+        saveQuest("Quest " + questCounter, questCard);
+      };
+
+      // Remove Quest Button
+      const removeButton = document.createElement("button");
+      removeButton.classList.add("remove-btn");
+      removeButton.innerText = "Remove Quest";
+      removeButton.onclick = function () {
+        removeQuest("Quest " + questCounter, questCard);
+      };
+
+      // Append all elements to the quest card
+      questCard.appendChild(questTitle);
+      questCard.appendChild(questTextArea);
+      questCard.appendChild(rewardInput);
+      questCard.appendChild(statusSelect);
+      questCard.appendChild(saveButton);
+      questCard.appendChild(removeButton);
+
+      questList.appendChild(questCard);
+      questCounter++;
+    }
+
+    // Save or update a quest in localStorage
+    function saveQuest(id, questCard) {
+      const details = questCard.querySelector("textarea").value;
+      const reward = questCard.querySelector("input.reward-input").value;
+      const status = questCard.querySelector("select").value;
+
+      if (details.trim() === "") {
+        alert("Quest details cannot be empty!");
+        return;
+      }
+
+      // Prepare quest data object
+      const questData = {
+        details: details,
+        reward: reward,
+        status: status,
+      };
+
+      // Retrieve saved quests, update with current quest data, and save
+      let savedQuests = JSON.parse(localStorage.getItem("yearlyQuests")) || {};
+      savedQuests[id] = questData;
+      localStorage.setItem("yearlyQuests", JSON.stringify(savedQuests));
+
+      // If quest is completed, show the reward animation with the entered reward
+      if (status === "Completed") {
+        showRewardAnimation(reward);
+      } else {
+        alert("Quest saved successfully!");
+      }
+    }
+
+    // Remove a quest from localStorage and the DOM
+    function removeQuest(id, questCard) {
+      let savedQuests = JSON.parse(localStorage.getItem("yearlyQuests")) || {};
+      delete savedQuests[id];
+      localStorage.setItem("yearlyQuests", JSON.stringify(savedQuests));
+      questCard.remove();
+    }
+
+    // Display the "Reward Granted" animation message with the provided reward text
+    function showRewardAnimation(rewardText) {
+      const rewardMessage = document.getElementById("rewardMessage");
+      rewardMessage.innerText = "REWARD GRANTED: " + rewardText;
+      rewardMessage.style.display = "block";
+      // Hide after 3 seconds
+      setTimeout(() => {
+        rewardMessage.style.display = "none";
+      }, 3000);
+    }
+
+    // When the page loads, load any saved quests from localStorage
+    window.onload = function () {
+      let savedQuests = JSON.parse(localStorage.getItem("yearlyQuests")) || {};
+      for (let questName in savedQuests) {
+        createQuestCard(questName, savedQuests[questName]);
+        // Update questCounter if necessary (assuming questName is in the format "Quest X")
+        const num = parseInt(questName.replace("Quest ", ""));
+        if (num >= questCounter) {
+          questCounter = num + 1;
+        }
+      }
+    };
+
+    // Helper function to create a quest card from saved data
+    function createQuestCard(questName, questData) {
+      const questCard = document.createElement("div");
+      questCard.classList.add("quest-card");
+
+      const questTitle = document.createElement("h3");
+      questTitle.innerText = questName;
+
+      const questTextArea = document.createElement("textarea");
+      questTextArea.value = questData.details;
+
+      const rewardInput = document.createElement("input");
+      rewardInput.type = "text";
+      rewardInput.placeholder = "Enter reward...";
+      rewardInput.classList.add("reward-input");
+      rewardInput.value = questData.reward;
+
+      const statusSelect = document.createElement("select");
+      const statuses = ["Not Started", "In Progress", "Completed"];
+      statuses.forEach((status) => {
+        const option = document.createElement("option");
+        option.value = status;
+        option.text = status;
+        statusSelect.appendChild(option);
+      });
+      statusSelect.value = questData.status;
+
+      const saveButton = document.createElement("button");
+      saveButton.classList.add("save-btn");
+      saveButton.innerText = "Save Quest";
+      saveButton.onclick = function () {
+        saveQuest(questName, questCard);
+      };
+
+      const removeButton = document.createElement("button");
+      removeButton.classList.add("remove-btn");
+      removeButton.innerText = "Remove Quest";
+      removeButton.onclick = function () {
+        removeQuest(questName, questCard);
+      };
+
+      questCard.appendChild(questTitle);
+      questCard.appendChild(questTextArea);
+      questCard.appendChild(rewardInput);
+      questCard.appendChild(statusSelect);
+      questCard.appendChild(saveButton);
+      questCard.appendChild(removeButton);
+
+      questList.appendChild(questCard);
+    }
+  </script>
+</body>
+</html>
