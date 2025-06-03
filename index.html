@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,14 +14,16 @@
       --deep-purple: #1d0b2a;
       --black: #000;
     }
-    
+
     /* Global Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    body, html {
+
+    body,
+    html {
       height: 100%;
       font-family: 'Orbitron', sans-serif;
       overflow-x: hidden;
@@ -28,7 +31,7 @@
       background: radial-gradient(circle at center, var(--deep-purple), var(--black));
       color: #F0F0F0;
     }
-    
+
     /* Canvas for Particle Background */
     #canvas {
       position: fixed;
@@ -38,7 +41,7 @@
       height: 100%;
       z-index: -1;
     }
-    
+
     /* Hero Section */
     .hero {
       height: 100vh;
@@ -49,27 +52,31 @@
       position: relative;
       overflow: hidden;
     }
+
     .hero h1 {
       font-size: 4rem;
       color: #fff;
       text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
       animation: neonFlicker 1.5s infinite alternate;
     }
+
     @keyframes neonFlicker {
       0% {
         text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
         opacity: 0.8;
       }
+
       50% {
         text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue), 0 0 40px var(--neon-blue);
         opacity: 1;
       }
+
       100% {
         text-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-blue), 0 0 35px var(--neon-blue);
         opacity: 0.9;
       }
     }
-    
+
     .scroll-down {
       position: absolute;
       bottom: 30px;
@@ -80,17 +87,32 @@
       cursor: pointer;
       animation: bounce 2s infinite;
     }
+
     @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-      40% { transform: translate(-50%, -10px); }
-      60% { transform: translate(-50%, -5px); }
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translate(-50%, 0);
+      }
+
+      40% {
+        transform: translate(-50%, -10px);
+      }
+
+      60% {
+        transform: translate(-50%, -5px);
+      }
     }
-    
+
     /* Cards Section */
     .cards-section {
       padding: 60px 20px;
-      background: linear-gradient(135deg, rgba(29,11,42,0.8) 0%, rgba(0,0,0,0.9) 100%);
+      background: linear-gradient(135deg, rgba(29, 11, 42, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
     }
+
     .cards-container {
       max-width: 1200px;
       margin: auto;
@@ -102,6 +124,7 @@
       border-radius: 20px;
       background: rgba(0, 0, 0, 0.3);
     }
+
     .card {
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid var(--neon-blue);
@@ -112,26 +135,46 @@
       opacity: 0;
       transform: translateY(20px);
     }
+
     .card.visible {
       opacity: 1;
       transform: translateY(0);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
+
     .card:hover {
       transform: scale(1.05);
       box-shadow: 0 0 15px var(--neon-blue);
     }
+
     .card h3 {
       margin: 10px 0;
       font-size: 1.8rem;
       color: var(--neon-blue);
       text-shadow: 0 0 8px var(--neon-blue);
     }
+
     .card p {
       font-size: 1rem;
       color: #ccc;
     }
-    
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      /* Keeps the text color consistent */
+    }
+
+    .card h3 a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card {
+      cursor: pointer;
+      /* Enables finger pointer on hover */
+    }
+
     /* Back-to-Top Button */
     .back-to-top {
       position: fixed;
@@ -145,46 +188,54 @@
       z-index: 10;
       user-select: none;
     }
+
     .back-to-top.visible {
       opacity: 1;
     }
   </style>
 </head>
+
 <body>
   <!-- Particle Background Canvas -->
   <canvas id="canvas"></canvas>
-  
+
   <!-- Hero Section -->
   <section class="hero">
     <h1>Imagination has no limits</h1>
-    <div class="scroll-down" onclick="document.getElementById('cards').scrollIntoView({ behavior: 'smooth' })">&#x2193;</div>
+    <div class="scroll-down" onclick="document.getElementById('cards').scrollIntoView({ behavior: 'smooth' })">&#x2193;
+    </div>
   </section>
-  
+
   <!-- Cards Section -->
-<section class="cards-section" id="cards">
-  <div class="cards-container">
-    <div class="card" onclick="window.location.href='home1.html';">
-      <h3>Lucid Dreaming</h3>
-      <p>Explore the depth of your subconscious visions.</p>
+  <section class="cards-section" id="cards">
+    <div class="cards-container">
+      <div class="card" onclick="window.location.href='home1.html';">
+        <h3>Lucid Dreaming</h3>
+        <p>Explore the depth of your subconscious visions.</p>
+      </div>
+      <div class="card" onclick="window.location.href='home2.html';">
+        <h3>Solo Leveling</h3>
+        <p>Unleash the hidden power within you.</p>
+      </div>
+      <div class="card">
+        <a href="blog.html">
+          <h3>My Blogs</h3>
+          <p>Discover thoughts, journeys, and inspirations.</p>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="project.html">
+          <h3>My Projects</h3>
+          <p>Witness the merger of creativity and innovation.</p>
+        </a>
+      </div>
     </div>
-    <div class="card" onclick="window.location.href='home2.html';">
-      <h3>Solo Leveling</h3>
-      <p>Unleash the hidden power within you.</p>
-    </div>
-    <div class="card">
-      <h3>My Blogs</h3>
-      <p>Discover thoughts, journeys, and inspirations.</p>
-    </div>
-    <div class="card">
-      <h3>My Projects</h3>
-      <p>Witness the merger of creativity and innovation.</p>
-    </div>
-  </div>
-</section>
-  
+  </section>
+
   <!-- Back-to-Top Button -->
   <div class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">&#8679;</div>
-  
+
   <script>
     /* --- Particle Background with Connecting Lines --- */
     const canvas = document.getElementById('canvas');
@@ -222,13 +273,13 @@
         let p = particles[i];
         p.x += p.dx;
         p.y += p.dy;
-        
+
         // Loop around edges
         if (p.x < 0) p.x = canvas.width;
         if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
-        
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = "rgba(0, 255, 255, 0.8)";
@@ -253,7 +304,7 @@
       requestAnimationFrame(animateParticles);
     }
     animateParticles();
-    
+
     /* --- Intersection Observer for Card Fade-In --- */
     const cards = document.querySelectorAll('.card');
     const cardObserver = new IntersectionObserver((entries) => {
@@ -264,7 +315,7 @@
       });
     }, { threshold: 0.2 });
     cards.forEach(card => cardObserver.observe(card));
-    
+
     /* --- Back-to-Top Button Visibility --- */
     const backToTopButton = document.querySelector('.back-to-top');
     window.addEventListener('scroll', () => {
@@ -276,4 +327,5 @@
     });
   </script>
 </body>
+
 </html>
